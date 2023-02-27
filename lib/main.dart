@@ -15,27 +15,48 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 
+   static _MyAppState of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>()!;
+
+
 }
 
 class _MyAppState extends State<MyApp> {
+
+  ThemeMode themeMode = ThemeMode.light;
+
+  changeTheme(){
+
+    setState(() {
+      
+      themeMode =
+        themeMode == ThemeMode.light ?
+        ThemeMode.dark : ThemeMode.light;
+
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
 
-      value: const SystemUiOverlayStyle(
-        
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark,
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
+      value: themeMode == ThemeMode.light ? const SystemUiOverlayStyle(
+              
+              systemNavigationBarColor: Colors.white,
+              systemNavigationBarIconBrightness: Brightness.dark,
 
-
-      ),
+          ) : const SystemUiOverlayStyle(
+              
+              systemNavigationBarColor: Colors.black,
+              systemNavigationBarIconBrightness: Brightness.light,
+              
+          ),
 
       child: MaterialApp(
         
         title: 'Flutter Demo',
+
+        themeMode: themeMode,
 
         theme: ThemeData(
 
@@ -47,7 +68,25 @@ class _MyAppState extends State<MyApp> {
             systemOverlayStyle: SystemUiOverlayStyle(
               
               statusBarColor: Colors.transparent,
-              statusBarIconBrightness: Brightness.dark,
+              statusBarIconBrightness:Brightness.dark
+            )
+
+          )
+        ),
+
+        darkTheme: ThemeData(
+
+          brightness: Brightness.dark,
+          primarySwatch: Colors.yellow,
+          accentColor: Colors.yellow,
+
+          appBarTheme: const AppBarTheme(
+
+            systemOverlayStyle: SystemUiOverlayStyle(
+              
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.light,
+
 
             )
 
@@ -101,10 +140,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: (){
+
+          MyApp.of(context).changeTheme();
+
+        },
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.dark_mode),
       ),
 
     );
