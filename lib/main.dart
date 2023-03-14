@@ -1,6 +1,8 @@
 import 'package:banana_project/banana.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:unicons/unicons.dart';
 
 void main() {
   
@@ -57,6 +59,8 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
 
         themeMode: themeMode,
+
+        debugShowCheckedModeBanner: false,
 
         theme: ThemeData(
 
@@ -118,11 +122,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
+    const iconSize = 25.0;
+    const iconPadding = 10.0;
+
     return Scaffold(
+
       appBar: AppBar(
 
         title: const Text("Cool banana"),
         elevation: 0.5,
+
+        actions: [
+
+          IconButton(onPressed: MyApp.of(context).changeTheme, icon: const Icon(Icons.dark_mode))
+
+        ],
 
       ),
       body: Center(
@@ -141,15 +155,33 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
+      bottomNavigationBar: CurvedNavigationBar(
+        color: Theme.of(context).primaryColor,
 
-          MyApp.of(context).changeTheme();
+        backgroundColor:
+          Theme.of(context).scaffoldBackgroundColor,
 
+        animationDuration:
+          const Duration(milliseconds: 300),
+
+
+        items: const [
+          Icon(UniconsLine.home_alt, size: iconSize),
+          Icon(UniconsLine.compass, size: iconSize),
+          Icon(UniconsLine.comment, size: iconSize),
+          Icon(UniconsLine.user, size: iconSize),
+          Icon(UniconsLine.bars, size: iconSize),
+        ].map((e) => Padding(
+          padding: const EdgeInsets.all(iconPadding),
+          child: e)).toList(),
+
+        onTap: (index) {
+          
         },
-        tooltip: 'Increment',
-        child: const Icon(Icons.dark_mode),
+
       ),
+
+     
 
     );
   }
