@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 void main() {
   
@@ -118,6 +119,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  void handlePress(){
+    print("some");
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +186,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
       ),
 
-     
+      floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: ExpandableFab(
+
+        child: const Icon(UniconsLine.plus),
+        distance: 100,
+        childrenOffset: const Offset(10, 10),
+
+        children: [
+
+          FloatingActionButton(
+            heroTag: null,
+            child: Icon(UniconsLine.image),
+            onPressed: handlePress,
+          ),
+          FloatingActionButton(
+            heroTag: null,
+            child: Icon(UniconsLine.video),
+            onPressed: handlePress,
+          ),
+          FloatingActionButton(
+            heroTag: null,
+            child: Icon(UniconsLine.file),
+            onPressed: handlePress,
+          ),
+         
+        ],
+
+      ),
+
 
     );
   }
