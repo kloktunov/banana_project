@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:unicons/unicons.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import 'package:animated_icon/animate_icon.dart';
+import 'package:animated_icon/animate_icons.dart';
 
 void main() {
   
@@ -139,8 +141,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
         actions: [
 
-          IconButton(onPressed: MyApp.of(context).changeTheme, icon: const Icon(Icons.dark_mode))
-
+          Container(
+            padding: EdgeInsets.all(10),
+            child: AnimateIcon(
+              onTap: MyApp.of(context).changeTheme,
+              iconType: IconType.toggleIcon,
+              height: 35,
+              width: 35,
+              color: Theme.of(context).iconTheme.color ?? Colors.white,
+              animateIcon: AnimateIcons.dayNightWeather,
+            )
+          )
+          
         ],
 
       ),
